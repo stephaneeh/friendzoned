@@ -1,4 +1,5 @@
 .env
 .DS_Store
 .seed
+.utils
 node_modules

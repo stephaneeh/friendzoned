@@ -48,6 +48,19 @@ module.exports = {
   },
 
   // TODO: PUT to update a user by its _id
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "No user with this id!" })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 
   //   TODO: DELETE to remove user by its _id
   //   FIXME: BONUS: Remove a user's associated thoughts when deleted.

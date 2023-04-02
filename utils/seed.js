@@ -1,16 +1,16 @@
-const connection = require('../config/connection');
-const { User, Thought } = require('../models');
-const {   
-    getRandomUsername,
-    getRandomEmail,
-    getRandomReaction,
-    getRandomThoughts, 
-} = require('./data');
+const connection = require("../config/connection");
+const { User, Thought } = require("../models");
+const {
+  getRandomUsername,
+  getRandomEmail,
+  getRandomReaction,
+  getRandomThoughts,
+} = require("./data");
 
-connection.on('error', (err) => err);
+connection.on("error", (err) => err);
 
-connection.once('open', async () => {
-  console.log('connected');
+connection.once("open", async () => {
+  console.log("connected");
 
   await User.deleteMany({});
   await Thought.deleteMany({});
@@ -22,14 +22,25 @@ connection.once('open', async () => {
   for (let i = 0; i < 5; i++) {
     // Get some random assignment objects using a helper function that we imported from ./data
     const username = getRandomUsername();
+    const email = `${username}${getRandomEmail()}`;
     const thoughts = getRandomThoughts();
-    
-
-    const github = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
+    // const friends = getRandomFriends();
 
     users.push({
-        username,
-        thoughts,
-        assignments,
+      username,
+      email,
+      // thoughts,
+      // friends,
     });
-  };
+  }
+
+  await User.collection.insertMany(users);
+  await Thought.collection.insertMany(thoughts);
+  // await Reaction.collection.insertMany(reactions);
+
+  console.table(users);
+  console.table(thoughts);
+  // console.table(reactions);
+  console.info("Data has been seeded");
+  process.exit(0);
+});

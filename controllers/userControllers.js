@@ -41,44 +41,13 @@ module.exports = {
       });
   },
   // TODO: POST a new user:
-  createUser(req, res) {
+  createUsers(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
 
-  //   TODO: PUT to update a user by its _id
-  // Add a thought to a user
-  addThought(req, res) {
-    console.log("You are adding a thought");
-    console.log(req.body);
-    User.findOneAndUpdate(
-      { _id: req.params.userID },
-      { $addToSet: { thoughts: req.body } },
-      { runValidators: true, new: true }
-    )
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No user found with that ID :(" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-
-  // remove a thought from a user
-  removeThought(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userID },
-      { $pull: { thought: { thoughtID: req.params.thoughtID } } },
-      { runValidators: true, new: true }
-    )
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No user found with that ID :(" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
+  // TODO: PUT to update a user by its _id
 
   //   TODO: DELETE to remove user by its _id
   //   FIXME: BONUS: Remove a user's associated thoughts when deleted.
@@ -93,12 +62,12 @@ module.exports = {
               { new: true }
             )
       )
-      .then((course) =>
-        !course
+      .then((user) =>
+        !user
           ? res.status(404).json({
-              message: "Student deleted, but no courses found",
+              message: "user deleted, but no thoughts found",
             })
-          : res.json({ message: "Student successfully deleted" })
+          : res.json({ message: "User successfully deleted" })
       )
       .catch((err) => {
         console.log(err);

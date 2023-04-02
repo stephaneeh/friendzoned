@@ -22,24 +22,23 @@ connection.once("open", async () => {
   for (let i = 0; i < 5; i++) {
     const username = getRandomUsername();
     const email = `${username}${getRandomEmail()}`;
-    const thoughts = getRandomThoughts();
+    const thoughts = getRandomThoughts(1);
     // const friends = getRandomFriends();
+    const newThoughts = await Thought.collection.insertMany(thoughts);
 
     users.push({
-      username,
-      email,
-      thoughts,
+      username: username,
+      email: email,
+      thoughts: [newThoughts.insertedIds["0"]],
       // friends,
     });
   }
 
   await User.collection.insertMany(users);
-  //   await Thought.collection.insertMany(thoughts);
+
   // await Reaction.collection.insertMany(reactions);
 
   console.table(users);
-  //   console.table(thoughts);
-  // console.table(reactions);
   console.info("Data has been seeded");
   process.exit(0);
 });

@@ -20,7 +20,6 @@ connection.once("open", async () => {
 
   // Loop 5 times -- add students to the students array
   for (let i = 0; i < 5; i++) {
-    // Get some random assignment objects using a helper function that we imported from ./data
     const username = getRandomUsername();
     const email = `${username}${getRandomEmail()}`;
     const thoughts = getRandomThoughts();
@@ -29,17 +28,17 @@ connection.once("open", async () => {
     users.push({
       username,
       email,
-      // thoughts,
+      thoughts,
       // friends,
     });
   }
 
-  await User.collection.insertMany(users);
-  await Thought.collection.insertMany(thoughts);
+  //   await User.collection.insertMany(users);
+  //   await Thought.collection.insertMany(thoughts);
   // await Reaction.collection.insertMany(reactions);
 
   console.table(users);
-  console.table(thoughts);
+  //   console.table(thoughts);
   // console.table(reactions);
   console.info("Data has been seeded");
   process.exit(0);

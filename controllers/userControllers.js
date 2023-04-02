@@ -32,7 +32,6 @@ module.exports = {
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json({
               user,
-              //   grade: await grade(req.params.userId), FIXME: what is this replaced with?
             })
       )
       .catch((err) => {

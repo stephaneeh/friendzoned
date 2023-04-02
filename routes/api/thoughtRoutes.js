@@ -22,7 +22,7 @@ router
   .put(updateThoughts)
   .delete(deleteThoughts);
 
-// /api/thoughts/:userId  - POST routes
+// // /api/thoughts/:userId  - POST routes
 router.route("/:userId").post(createThoughts);
 
 // /api/thoughts/:thoughtId/reactions  - POST routes

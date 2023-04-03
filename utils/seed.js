@@ -5,6 +5,7 @@ const {
   getRandomEmail,
   getRandomReaction,
   getRandomThoughts,
+  getRandomFriends,
 } = require("./data");
 
 connection.on("error", (err) => err);
@@ -30,7 +31,7 @@ connection.once("open", async () => {
       username: username,
       email: email,
       thoughts: [newThoughts.insertedIds["0"]],
-      // friends,
+      friends: [],
     });
   }
 

@@ -29,11 +29,21 @@ const reactions = ["Cool", "Noice", "Toight", "Uncool", "Boo"];
 
 const email = ["@gmail.com", "@hotmail.com", "@outlook.com", "@microsoft.com"];
 
+const friendsArr = [];
+
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 // Gets a random username
-const getRandomUsername = () => `${getRandomArrItem(userName)}`;
+const getRandomUsername = () => {
+  const chosenUsername = `${getRandomArrItem(userName)}`;
+  const index = userName.indexOf(chosenUsername);
+  if (index > -1) {
+    userName.splice(index, 1);
+  }
+  friendsArr.push(chosenUsername);
+  return chosenUsername;
+};
 
 // Gets a random email
 const getRandomEmail = () => `${getRandomArrItem(email)}`;
@@ -53,7 +63,7 @@ const getRandomReaction = (num) => {
   return results;
 };
 
-// Function to generate random assignments that we can add to student object.
+// Function to generate random thoughts that we can add to user object.
 const getRandomThoughts = (int) => {
   const results = [];
   for (let i = 0; i < int; i++) {
@@ -63,6 +73,7 @@ const getRandomThoughts = (int) => {
   }
   return results;
 };
+// Selects a random friend based on username array minus user
 
 // Export the functions for use in seed.js
 module.exports = {

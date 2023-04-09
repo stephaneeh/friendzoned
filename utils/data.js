@@ -48,37 +48,22 @@ const getRandomUsername = () => {
 // Gets a random email
 const getRandomEmail = () => `${getRandomArrItem(email)}`;
 
-// Gets a random reaction
-const getRandomReaction = (num) => {
-  if (num === 1) {
-    return getRandomArrItem(reactions);
-  }
-  let results = [];
-  for (let i = 0; i < int; i++) {
-    results.push({
-      reactionBody: getRandomArrItem(reactions),
-      username: getRandomArrItem(userName),
-    });
-  }
-  return results;
-};
-
 // Function to generate random thoughts that we can add to user object.
-const getRandomThoughts = (int) => {
+const getRandomThoughts = (int, createdUsername) => {
   const results = [];
   for (let i = 0; i < int; i++) {
     results.push({
-      thoughtName: getRandomArrItem(thoughts),
+      thoughText: getRandomArrItem(thoughts),
+      username: createdUsername,
     });
   }
   return results;
 };
-// Selects a random friend based on username array minus user
 
 // Export the functions for use in seed.js
 module.exports = {
   getRandomUsername,
   getRandomEmail,
-  getRandomReaction,
+  // getRandomReaction,
   getRandomThoughts,
 };

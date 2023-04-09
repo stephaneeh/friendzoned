@@ -27,7 +27,7 @@ const reactionSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    get: formatDate,
+    get: (date) => formatDate(date),
   },
 });
 
@@ -42,21 +42,21 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      get: formatDate,
+      get: (date) => formatDate(date),
     },
     username: {
       type: String,
       Required: true,
     },
     reactions: [reactionSchema],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
   }
-  // { FIXME: IS THIS REQUIRED?
-  //   toJSON: {
-  //     virtuals: true,
-  //     getters: true,
-  //   },
-  //   id: false,
-  // }
 );
 
 // Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
@@ -68,6 +68,6 @@ thoughtSchema
   });
 
 // Initialize our Thought model
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 
 module.exports = Thought;

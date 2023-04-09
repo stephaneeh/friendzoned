@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Thought = require("./Thought");
 
 const validateEmail = function (email) {
   const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -28,13 +29,13 @@ const userSchema = new Schema(
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "thought",
+        ref: "Thought",
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "User",
       },
     ],
   },
@@ -54,6 +55,6 @@ userSchema
   });
 
 // Initialize our User model
-const User = model("user", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;
